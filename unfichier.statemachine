@@ -1,0 +1,3 @@
+commands un deux trois test end
+
+state test actions {trois un }end
