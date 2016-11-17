@@ -1,0 +1,93 @@
+grammar org.xtext.example.mydsl.MyDsl with org.eclipse.xtext.common.Terminals
+
+generate myDsl "http://www.xtext.org/example/mydsl/MyDsl"
+
+Model :
+	name += Programme
+;
+
+Programme :
+	Fonction* ;
+
+Fonction :
+	'function' LC SYMBOL ':' LC Definition;
+
+Definition :
+	'read' LC Input LC '%' LC Commands LC '%' LC 'write' LC Output;
+
+Input :
+	VARIABLE (',' LC VARIABLE) *;
+
+Output :
+	VARIABLE (',' LC VARIABLE)* ;
+
+Commands :
+	Command (';' LC Command)* ;
+
+Command :
+	=> 'nop' | Vars ':=' Exprs
+	| While
+	| Ifelse
+	| For
+	| Foreach
+	;
+
+While :
+	=> 'while' LC Expr LC 'do' LC Commands LC 'od'
+;
+
+Ifelse :
+	=> 'if' LC	Expr LC 'then' LC Commands LC ('else' LC Commands LC 'fi' | 'fi')
+;
+
+For :
+	=> 'for' LC Expr LC 'do' LC Commands LC 'od'
+;
+
+Foreach :
+	=> 'foreach' LC Expr LC 'in' LC Expr LC
+	 	'do' LC Commands LC 'od'
+;
+
+
+Vars :
+	VARIABLE (',' VARIABLE)*;
+
+Exprs :
+	Expr ( ',' Expr)*;
+
+
+Expr :
+	=> ExprSimple
+	| ExprAnd;
+
+
+ExprSimple :
+	'nil' | VARIABLE | SYMBOL | '(' 'cons' LExpr ')' | '(' 'list'	LExpr ')' | '(' 'hd' LC Expr ')' | '(' 'tl' LC Expr ')' | '(' SYMBOL LExpr ')';
+
+LExpr :
+	(LC Expr)+;
+
+ExprAnd :
+	ExprOr (LC 'and' LC ExprOr)*;
+
+ExprOr :
+	ExprNot (LC 'or' LC ExprNot)*;
+
+ExprNot :
+	'not' LC ExprEq | ExprEq;
+
+ExprEq :
+	ExprSimple '=?' ExprSimple | '(' Expr ')';
+
+terminal VARIABLE:
+	'A'..'Z' ('A'..'Z'|'a'..'z'|'0'..'9')* ('!'|'?')?;
+
+terminal LC :
+	' ' | '\n' | '\t' | '\r\n';
+
+/*terminal :
+	'\n';*/
+
+terminal SYMBOL :
+	'a'..'z'('A'..'Z'|'a'..'z'|'0'..'9')* ('!'|'?')?;
