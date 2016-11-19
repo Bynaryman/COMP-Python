@@ -1,0 +1,31 @@
+grammar org.xtext.comp.Wh with org.eclipse.xtext.common.Terminals
+
+generate wh "http://www.xtext.org/comp/Wh"
+
+Wh :
+    (elements+=Program)*;
+  
+ 
+Program: 
+	'function' LC name=ID LC ':' LC definition=Definition 
+;
+
+Definition:
+	'read' LC input=ID LC '%' LC command=Commands LC '%' LC 'write' LC output=ID
+;
+
+Commands:
+	commands+=Command (';' LC commands+=Command)*
+;
+
+Command:
+    cmd=NOP
+;
+
+terminal NOP:
+	'nop'
+;
+
+terminal LC:
+	(' '|'\t'|'\n' | '\r') ((' '|'\t'|'\n' | '\r'))*
+;
