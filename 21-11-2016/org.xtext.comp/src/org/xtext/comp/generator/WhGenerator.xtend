@@ -15,6 +15,8 @@ import org.xtext.comp.wh.Output
 import org.xtext.comp.wh.Program
 import org.xtext.comp.wh.impl.AffectImpl
 import org.xtext.comp.wh.impl.NopImpl
+import org.xtext.comp.wh.Exprs
+import org.xtext.comp.wh.Vars
 
 /**
  * Generates code from your model files on save.
@@ -53,10 +55,20 @@ class WhGenerator extends AbstractGenerator {
     
     def prettyPrint( NopImpl n ) '''«n.nop»'''
     
-    def prettyPrint(AffectImpl a)'''I m an Affect'''
+    def prettyPrint( Exprs e ) {
+    	return "expr !"
+    }
+    
+    def prettyPrint(Vars v) {
+    	return "var !"
+    }
+    
+    def prettyPrint(AffectImpl a){
+    	return a.vars.prettyPrint + ' := ' +  a.exp.prettyPrint;
+    }
     
     // Impossible d'afficher une varaible dans les ''' ''' ...
-    def prettyPrintJava(Command c, boolean isLast) {
+    def prettyPrint(Command c, boolean isLast) {
 		var res = ""
     	if( c.cmd instanceof NopImpl ) {
     		res+= (c.cmd as NopImpl).prettyPrint
@@ -72,20 +84,14 @@ class WhGenerator extends AbstractGenerator {
        	
        	return res
     }
-     
-    def prettyPrint(Command c, boolean isLast)
-    '''«IF c.cmd instanceof NopImpl»
-    		«(c.cmd as NopImpl).prettyPrint»«IF !isLast»;«ENDIF»«ENDIF»
-    	«IF c.cmd instanceof AffectImpl»
-			«(c.cmd as AffectImpl).prettyPrint»«IF !isLast»;«ENDIF»«ENDIF»'''
     
     def prettyPrint( Commands cmds)'''
     	«IF cmds.commands.size > 1»
 	    	«FOR c : 0..cmds.commands.size-2»
-	    	«cmds.commands.get(c).prettyPrintJava(false)»
+	    	«cmds.commands.get(c).prettyPrint(false)»
 	    	«ENDFOR»
     	«ENDIF»
-    	«cmds.commands.get(cmds.commands.size -1 ).prettyPrintJava(true)»
+    	«cmds.commands.get(cmds.commands.size -1 ).prettyPrint(true)»
     '''
 
 }

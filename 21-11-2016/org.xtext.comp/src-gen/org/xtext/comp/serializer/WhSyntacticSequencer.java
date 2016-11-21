@@ -10,6 +10,9 @@ import org.eclipse.xtext.IGrammarAccess;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.AbstractElementAlias;
+import org.eclipse.xtext.serializer.analysis.GrammarAlias.AlternativeAlias;
+import org.eclipse.xtext.serializer.analysis.GrammarAlias.TokenAlias;
+import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynNavigable;
 import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynTransition;
 import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 import org.xtext.comp.services.WhGrammarAccess;
@@ -18,17 +21,57 @@ import org.xtext.comp.services.WhGrammarAccess;
 public class WhSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected WhGrammarAccess grammarAccess;
+	protected AbstractElementAlias match_ExprSimple_NilKeyword_0_or_SYMBOLTerminalRuleCall_2_or_VARIABLETerminalRuleCall_1;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (WhGrammarAccess) access;
+		match_ExprSimple_NilKeyword_0_or_SYMBOLTerminalRuleCall_2_or_VARIABLETerminalRuleCall_1 = new AlternativeAlias(false, false, new TokenAlias(false, false, grammarAccess.getExprSimpleAccess().getNilKeyword_0()), new TokenAlias(false, false, grammarAccess.getExprSimpleAccess().getSYMBOLTerminalRuleCall_2()), new TokenAlias(false, false, grammarAccess.getExprSimpleAccess().getVARIABLETerminalRuleCall_1()));
 	}
 	
 	@Override
 	protected String getUnassignedRuleCallToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (ruleCall.getRule() == grammarAccess.getExprAndRule())
+			return getExprAndToken(semanticObject, ruleCall, node);
+		else if (ruleCall.getRule() == grammarAccess.getSYMBOLRule())
+			return getSYMBOLToken(semanticObject, ruleCall, node);
+		else if (ruleCall.getRule() == grammarAccess.getVARIABLERule())
+			return getVARIABLEToken(semanticObject, ruleCall, node);
 		return "";
 	}
 	
+	/**
+	 * ExprAnd:
+	 * 	'TODO'
+	 * ;
+	 */
+	protected String getExprAndToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return "TODO";
+	}
+	
+	/**
+	 * terminal SYMBOL:
+	 * 	('a'..'z') (('0'..'9') | ('a'..'z') | ('A'..'Z'))* ((('-' | '+' | '.' | '/' | '_' | '&') | '->') (('0'..'9') | ('a'..'z') | ('A'..'Z'))+)* ('?' | '!')?
+	 * ;
+	 */
+	protected String getSYMBOLToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return "";
+	}
+	
+	/**
+	 * terminal VARIABLE:
+	 * 	('A'..'Z') (('0'..'9') | ('a'..'z') | ('A'..'Z'))* ((('-' | '+' | '.' | '/' | '_' | '&') | '->') (('0'..'9') | ('a'..'z') | ('A'..'Z'))+)* ('?' | '!')?
+	 * ;
+	 */
+	protected String getVARIABLEToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return "";
+	}
 	
 	@Override
 	protected void emitUnassignedTokens(EObject semanticObject, ISynTransition transition, INode fromNode, INode toNode) {
@@ -36,8 +79,21 @@ public class WhSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			acceptNodes(getLastNavigableState(), syntaxNodes);
+			if (match_ExprSimple_NilKeyword_0_or_SYMBOLTerminalRuleCall_2_or_VARIABLETerminalRuleCall_1.equals(syntax))
+				emit_ExprSimple_NilKeyword_0_or_SYMBOLTerminalRuleCall_2_or_VARIABLETerminalRuleCall_1(semanticObject, getLastNavigableState(), syntaxNodes);
+			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
 
+	/**
+	 * Ambiguous syntax:
+	 *     'nil' | VARIABLE | SYMBOL
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) (ambiguity) (rule start)
+	 */
+	protected void emit_ExprSimple_NilKeyword_0_or_SYMBOLTerminalRuleCall_2_or_VARIABLETerminalRuleCall_1(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
 }

@@ -25,7 +25,7 @@ import org.xtext.comp.wh.WhPackage;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.xtext.comp.wh.impl.AffectImpl#getVar <em>Var</em>}</li>
+ *   <li>{@link org.xtext.comp.wh.impl.AffectImpl#getVars <em>Vars</em>}</li>
  *   <li>{@link org.xtext.comp.wh.impl.AffectImpl#getExp <em>Exp</em>}</li>
  * </ul>
  *
@@ -34,14 +34,14 @@ import org.xtext.comp.wh.WhPackage;
 public class AffectImpl extends MinimalEObjectImpl.Container implements Affect
 {
   /**
-   * The cached value of the '{@link #getVar() <em>Var</em>}' containment reference.
+   * The cached value of the '{@link #getVars() <em>Vars</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getVar()
+   * @see #getVars()
    * @generated
    * @ordered
    */
-  protected Vars var;
+  protected Vars vars;
 
   /**
    * The cached value of the '{@link #getExp() <em>Exp</em>}' containment reference.
@@ -79,9 +79,9 @@ public class AffectImpl extends MinimalEObjectImpl.Container implements Affect
    * <!-- end-user-doc -->
    * @generated
    */
-  public Vars getVar()
+  public Vars getVars()
   {
-    return var;
+    return vars;
   }
 
   /**
@@ -89,13 +89,13 @@ public class AffectImpl extends MinimalEObjectImpl.Container implements Affect
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetVar(Vars newVar, NotificationChain msgs)
+  public NotificationChain basicSetVars(Vars newVars, NotificationChain msgs)
   {
-    Vars oldVar = var;
-    var = newVar;
+    Vars oldVars = vars;
+    vars = newVars;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, WhPackage.AFFECT__VAR, oldVar, newVar);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, WhPackage.AFFECT__VARS, oldVars, newVars);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -106,20 +106,20 @@ public class AffectImpl extends MinimalEObjectImpl.Container implements Affect
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setVar(Vars newVar)
+  public void setVars(Vars newVars)
   {
-    if (newVar != var)
+    if (newVars != vars)
     {
       NotificationChain msgs = null;
-      if (var != null)
-        msgs = ((InternalEObject)var).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - WhPackage.AFFECT__VAR, null, msgs);
-      if (newVar != null)
-        msgs = ((InternalEObject)newVar).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - WhPackage.AFFECT__VAR, null, msgs);
-      msgs = basicSetVar(newVar, msgs);
+      if (vars != null)
+        msgs = ((InternalEObject)vars).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - WhPackage.AFFECT__VARS, null, msgs);
+      if (newVars != null)
+        msgs = ((InternalEObject)newVars).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - WhPackage.AFFECT__VARS, null, msgs);
+      msgs = basicSetVars(newVars, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, WhPackage.AFFECT__VAR, newVar, newVar));
+      eNotify(new ENotificationImpl(this, Notification.SET, WhPackage.AFFECT__VARS, newVars, newVars));
   }
 
   /**
@@ -180,8 +180,8 @@ public class AffectImpl extends MinimalEObjectImpl.Container implements Affect
   {
     switch (featureID)
     {
-      case WhPackage.AFFECT__VAR:
-        return basicSetVar(null, msgs);
+      case WhPackage.AFFECT__VARS:
+        return basicSetVars(null, msgs);
       case WhPackage.AFFECT__EXP:
         return basicSetExp(null, msgs);
     }
@@ -198,8 +198,8 @@ public class AffectImpl extends MinimalEObjectImpl.Container implements Affect
   {
     switch (featureID)
     {
-      case WhPackage.AFFECT__VAR:
-        return getVar();
+      case WhPackage.AFFECT__VARS:
+        return getVars();
       case WhPackage.AFFECT__EXP:
         return getExp();
     }
@@ -216,8 +216,8 @@ public class AffectImpl extends MinimalEObjectImpl.Container implements Affect
   {
     switch (featureID)
     {
-      case WhPackage.AFFECT__VAR:
-        setVar((Vars)newValue);
+      case WhPackage.AFFECT__VARS:
+        setVars((Vars)newValue);
         return;
       case WhPackage.AFFECT__EXP:
         setExp((Exprs)newValue);
@@ -236,8 +236,8 @@ public class AffectImpl extends MinimalEObjectImpl.Container implements Affect
   {
     switch (featureID)
     {
-      case WhPackage.AFFECT__VAR:
-        setVar((Vars)null);
+      case WhPackage.AFFECT__VARS:
+        setVars((Vars)null);
         return;
       case WhPackage.AFFECT__EXP:
         setExp((Exprs)null);
@@ -256,8 +256,8 @@ public class AffectImpl extends MinimalEObjectImpl.Container implements Affect
   {
     switch (featureID)
     {
-      case WhPackage.AFFECT__VAR:
-        return var != null;
+      case WhPackage.AFFECT__VARS:
+        return vars != null;
       case WhPackage.AFFECT__EXP:
         return exp != null;
     }

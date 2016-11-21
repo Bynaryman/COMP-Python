@@ -3,55 +3,56 @@
  */
 package org.xtext.comp.wh.impl;
 
-import java.util.Collection;
-
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
-
-import org.xtext.comp.wh.Expr;
-import org.xtext.comp.wh.Exprs;
 import org.xtext.comp.wh.WhPackage;
+import org.xtext.comp.wh.cons;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Exprs</b></em>'.
+ * An implementation of the model object '<em><b>cons</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.xtext.comp.wh.impl.ExprsImpl#getExprs <em>Exprs</em>}</li>
+ *   <li>{@link org.xtext.comp.wh.impl.consImpl#getList <em>List</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class ExprsImpl extends MinimalEObjectImpl.Container implements Exprs
+public class consImpl extends ExprSimpleImpl implements cons
 {
   /**
-   * The cached value of the '{@link #getExprs() <em>Exprs</em>}' containment reference list.
+   * The default value of the '{@link #getList() <em>List</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getExprs()
+   * @see #getList()
    * @generated
    * @ordered
    */
-  protected EList<Expr> exprs;
+  protected static final String LIST_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getList() <em>List</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getList()
+   * @generated
+   * @ordered
+   */
+  protected String list = LIST_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected ExprsImpl()
+  protected consImpl()
   {
     super();
   }
@@ -64,7 +65,7 @@ public class ExprsImpl extends MinimalEObjectImpl.Container implements Exprs
   @Override
   protected EClass eStaticClass()
   {
-    return WhPackage.Literals.EXPRS;
+    return WhPackage.Literals.CONS;
   }
 
   /**
@@ -72,13 +73,9 @@ public class ExprsImpl extends MinimalEObjectImpl.Container implements Exprs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Expr> getExprs()
+  public String getList()
   {
-    if (exprs == null)
-    {
-      exprs = new EObjectContainmentEList<Expr>(Expr.class, this, WhPackage.EXPRS__EXPRS);
-    }
-    return exprs;
+    return list;
   }
 
   /**
@@ -86,15 +83,12 @@ public class ExprsImpl extends MinimalEObjectImpl.Container implements Exprs
    * <!-- end-user-doc -->
    * @generated
    */
-  @Override
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  public void setList(String newList)
   {
-    switch (featureID)
-    {
-      case WhPackage.EXPRS__EXPRS:
-        return ((InternalEList<?>)getExprs()).basicRemove(otherEnd, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
+    String oldList = list;
+    list = newList;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, WhPackage.CONS__LIST, oldList, list));
   }
 
   /**
@@ -107,8 +101,8 @@ public class ExprsImpl extends MinimalEObjectImpl.Container implements Exprs
   {
     switch (featureID)
     {
-      case WhPackage.EXPRS__EXPRS:
-        return getExprs();
+      case WhPackage.CONS__LIST:
+        return getList();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -118,15 +112,13 @@ public class ExprsImpl extends MinimalEObjectImpl.Container implements Exprs
    * <!-- end-user-doc -->
    * @generated
    */
-  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
-      case WhPackage.EXPRS__EXPRS:
-        getExprs().clear();
-        getExprs().addAll((Collection<? extends Expr>)newValue);
+      case WhPackage.CONS__LIST:
+        setList((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -142,8 +134,8 @@ public class ExprsImpl extends MinimalEObjectImpl.Container implements Exprs
   {
     switch (featureID)
     {
-      case WhPackage.EXPRS__EXPRS:
-        getExprs().clear();
+      case WhPackage.CONS__LIST:
+        setList(LIST_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -159,10 +151,27 @@ public class ExprsImpl extends MinimalEObjectImpl.Container implements Exprs
   {
     switch (featureID)
     {
-      case WhPackage.EXPRS__EXPRS:
-        return exprs != null && !exprs.isEmpty();
+      case WhPackage.CONS__LIST:
+        return LIST_EDEFAULT == null ? list != null : !LIST_EDEFAULT.equals(list);
     }
     return super.eIsSet(featureID);
   }
 
-} //ExprsImpl
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (list: ");
+    result.append(list);
+    result.append(')');
+    return result.toString();
+  }
+
+} //consImpl

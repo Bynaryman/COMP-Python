@@ -36,6 +36,7 @@ public class WhParser extends AbstractContentAssistParser {
 				private static final long serialVersionUID = 1L;
 				{
 					put(grammarAccess.getCommandAccess().getCmdAlternatives_0(), "rule__Command__CmdAlternatives_0");
+					put(grammarAccess.getExprAccess().getAlternatives(), "rule__Expr__Alternatives");
 					put(grammarAccess.getExprSimpleAccess().getAlternatives(), "rule__ExprSimple__Alternatives");
 					put(grammarAccess.getProgramAccess().getGroup(), "rule__Program__Group__0");
 					put(grammarAccess.getDefinitionAccess().getGroup(), "rule__Definition__Group__0");
@@ -50,6 +51,7 @@ public class WhParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVarsAccess().getGroup_1(), "rule__Vars__Group_1__0");
 					put(grammarAccess.getExprsAccess().getGroup(), "rule__Exprs__Group__0");
 					put(grammarAccess.getExprsAccess().getGroup_1(), "rule__Exprs__Group_1__0");
+					put(grammarAccess.getConsAccess().getGroup(), "rule__Cons__Group__0");
 					put(grammarAccess.getWhAccess().getElementsAssignment(), "rule__Wh__ElementsAssignment");
 					put(grammarAccess.getProgramAccess().getNameAssignment_1(), "rule__Program__NameAssignment_1");
 					put(grammarAccess.getProgramAccess().getDefinitionAssignment_3(), "rule__Program__DefinitionAssignment_3");
@@ -64,12 +66,13 @@ public class WhParser extends AbstractContentAssistParser {
 					put(grammarAccess.getCommandsAccess().getCommandsAssignment_1_1(), "rule__Commands__CommandsAssignment_1_1");
 					put(grammarAccess.getCommandAccess().getCmdAssignment(), "rule__Command__CmdAssignment");
 					put(grammarAccess.getNopAccess().getNopAssignment(), "rule__Nop__NopAssignment");
-					put(grammarAccess.getAffectAccess().getVarAssignment_0(), "rule__Affect__VarAssignment_0");
+					put(grammarAccess.getAffectAccess().getVarsAssignment_0(), "rule__Affect__VarsAssignment_0");
 					put(grammarAccess.getAffectAccess().getExpAssignment_2(), "rule__Affect__ExpAssignment_2");
 					put(grammarAccess.getVarsAccess().getVarsAssignment_0(), "rule__Vars__VarsAssignment_0");
 					put(grammarAccess.getVarsAccess().getVarsAssignment_1_1(), "rule__Vars__VarsAssignment_1_1");
 					put(grammarAccess.getExprsAccess().getExprsAssignment_0(), "rule__Exprs__ExprsAssignment_0");
 					put(grammarAccess.getExprsAccess().getExprsAssignment_1_1(), "rule__Exprs__ExprsAssignment_1_1");
+					put(grammarAccess.getConsAccess().getListAssignment_2(), "rule__Cons__ListAssignment_2");
 				}
 			};
 		}
