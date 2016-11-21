@@ -17,9 +17,11 @@ import org.eclipse.xtext.xbase.lib.IteratorExtensions;
 import org.xtext.comp.wh.Command;
 import org.xtext.comp.wh.Commands;
 import org.xtext.comp.wh.Definition;
+import org.xtext.comp.wh.Exprs;
 import org.xtext.comp.wh.Input;
 import org.xtext.comp.wh.Output;
 import org.xtext.comp.wh.Program;
+import org.xtext.comp.wh.Vars;
 import org.xtext.comp.wh.impl.AffectImpl;
 import org.xtext.comp.wh.impl.NopImpl;
 
@@ -151,13 +153,24 @@ public class WhGenerator extends AbstractGenerator {
     return _builder;
   }
   
-  public CharSequence prettyPrint(final AffectImpl a) {
-    StringConcatenation _builder = new StringConcatenation();
-    _builder.append("I m an Affect");
-    return _builder;
+  public String prettyPrint(final Exprs e) {
+    return "expr !";
   }
   
-  public String prettyPrintJava(final Command c, final boolean isLast) {
+  public String prettyPrint(final Vars v) {
+    return "var !";
+  }
+  
+  public String prettyPrint(final AffectImpl a) {
+    Vars _vars = a.getVars();
+    String _prettyPrint = this.prettyPrint(_vars);
+    String _plus = (_prettyPrint + " := ");
+    Exprs _exp = a.getExp();
+    String _prettyPrint_1 = this.prettyPrint(_exp);
+    return (_plus + _prettyPrint_1);
+  }
+  
+  public String prettyPrint(final Command c, final boolean isLast) {
     String res = "";
     EObject _cmd = c.getCmd();
     if ((_cmd instanceof NopImpl)) {
@@ -170,7 +183,7 @@ public class WhGenerator extends AbstractGenerator {
     if ((_cmd_2 instanceof AffectImpl)) {
       String _res_1 = res;
       EObject _cmd_3 = c.getCmd();
-      CharSequence _prettyPrint_1 = this.prettyPrint(((AffectImpl) _cmd_3));
+      String _prettyPrint_1 = this.prettyPrint(((AffectImpl) _cmd_3));
       res = (_res_1 + _prettyPrint_1);
     }
     if ((!isLast)) {
@@ -180,39 +193,6 @@ public class WhGenerator extends AbstractGenerator {
       res = (_res_2 + _builder);
     }
     return res;
-  }
-  
-  public CharSequence prettyPrint(final Command c, final boolean isLast) {
-    StringConcatenation _builder = new StringConcatenation();
-    {
-      EObject _cmd = c.getCmd();
-      if ((_cmd instanceof NopImpl)) {
-        _builder.newLineIfNotEmpty();
-        EObject _cmd_1 = c.getCmd();
-        CharSequence _prettyPrint = this.prettyPrint(((NopImpl) _cmd_1));
-        _builder.append(_prettyPrint, "");
-        {
-          if ((!isLast)) {
-            _builder.append(";");
-          }
-        }
-      }
-    }
-    _builder.newLineIfNotEmpty();
-    {
-      EObject _cmd_2 = c.getCmd();
-      if ((_cmd_2 instanceof AffectImpl)) {
-        EObject _cmd_3 = c.getCmd();
-        CharSequence _prettyPrint_1 = this.prettyPrint(((AffectImpl) _cmd_3));
-        _builder.append(_prettyPrint_1, "");
-        {
-          if ((!isLast)) {
-            _builder.append(";");
-          }
-        }
-      }
-    }
-    return _builder;
   }
   
   public CharSequence prettyPrint(final Commands cmds) {
@@ -230,8 +210,8 @@ public class WhGenerator extends AbstractGenerator {
           for(final Integer c : _upTo) {
             EList<Command> _commands_2 = cmds.getCommands();
             Command _get = _commands_2.get((c).intValue());
-            String _prettyPrintJava = this.prettyPrintJava(_get, false);
-            _builder.append(_prettyPrintJava, "");
+            String _prettyPrint = this.prettyPrint(_get, false);
+            _builder.append(_prettyPrint, "");
             _builder.newLineIfNotEmpty();
           }
         }
@@ -242,8 +222,8 @@ public class WhGenerator extends AbstractGenerator {
     int _size_2 = _commands_4.size();
     int _minus_1 = (_size_2 - 1);
     Command _get_1 = _commands_3.get(_minus_1);
-    String _prettyPrintJava_1 = this.prettyPrintJava(_get_1, true);
-    _builder.append(_prettyPrintJava_1, "");
+    String _prettyPrint_1 = this.prettyPrint(_get_1, true);
+    _builder.append(_prettyPrint_1, "");
     _builder.newLineIfNotEmpty();
     return _builder;
   }

@@ -14,6 +14,8 @@ import org.xtext.comp.wh.Affect;
 import org.xtext.comp.wh.Command;
 import org.xtext.comp.wh.Commands;
 import org.xtext.comp.wh.Definition;
+import org.xtext.comp.wh.Expr;
+import org.xtext.comp.wh.ExprSimple;
 import org.xtext.comp.wh.Exprs;
 import org.xtext.comp.wh.Input;
 import org.xtext.comp.wh.Nop;
@@ -23,6 +25,7 @@ import org.xtext.comp.wh.Vars;
 import org.xtext.comp.wh.Wh;
 import org.xtext.comp.wh.WhFactory;
 import org.xtext.comp.wh.WhPackage;
+import org.xtext.comp.wh.cons;
 
 /**
  * <!-- begin-user-doc -->
@@ -108,6 +111,27 @@ public class WhPackageImpl extends EPackageImpl implements WhPackage
    * @generated
    */
   private EClass exprsEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass exprEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass exprSimpleEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass consEClass = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -377,7 +401,7 @@ public class WhPackageImpl extends EPackageImpl implements WhPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAffect_Var()
+  public EReference getAffect_Vars()
   {
     return (EReference)affectEClass.getEStructuralFeatures().get(0);
   }
@@ -427,9 +451,49 @@ public class WhPackageImpl extends EPackageImpl implements WhPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getExprs_Exprs()
+  public EReference getExprs_Exprs()
   {
-    return (EAttribute)exprsEClass.getEStructuralFeatures().get(0);
+    return (EReference)exprsEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getExpr()
+  {
+    return exprEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getExprSimple()
+  {
+    return exprSimpleEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getcons()
+  {
+    return consEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getcons_List()
+  {
+    return (EAttribute)consEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -490,14 +554,21 @@ public class WhPackageImpl extends EPackageImpl implements WhPackage
     createEAttribute(nopEClass, NOP__NOP);
 
     affectEClass = createEClass(AFFECT);
-    createEReference(affectEClass, AFFECT__VAR);
+    createEReference(affectEClass, AFFECT__VARS);
     createEReference(affectEClass, AFFECT__EXP);
 
     varsEClass = createEClass(VARS);
     createEAttribute(varsEClass, VARS__VARS);
 
     exprsEClass = createEClass(EXPRS);
-    createEAttribute(exprsEClass, EXPRS__EXPRS);
+    createEReference(exprsEClass, EXPRS__EXPRS);
+
+    exprEClass = createEClass(EXPR);
+
+    exprSimpleEClass = createEClass(EXPR_SIMPLE);
+
+    consEClass = createEClass(CONS);
+    createEAttribute(consEClass, CONS__LIST);
   }
 
   /**
@@ -529,6 +600,8 @@ public class WhPackageImpl extends EPackageImpl implements WhPackage
     // Set bounds for type parameters
 
     // Add supertypes to classes
+    exprSimpleEClass.getESuperTypes().add(this.getExpr());
+    consEClass.getESuperTypes().add(this.getExprSimple());
 
     // Initialize classes and features; add operations and parameters
     initEClass(whEClass, Wh.class, "Wh", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -559,14 +632,21 @@ public class WhPackageImpl extends EPackageImpl implements WhPackage
     initEAttribute(getNop_Nop(), ecorePackage.getEString(), "nop", null, 0, 1, Nop.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(affectEClass, Affect.class, "Affect", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getAffect_Var(), this.getVars(), null, "var", null, 0, 1, Affect.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAffect_Vars(), this.getVars(), null, "vars", null, 0, 1, Affect.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAffect_Exp(), this.getExprs(), null, "exp", null, 0, 1, Affect.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(varsEClass, Vars.class, "Vars", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getVars_Vars(), ecorePackage.getEString(), "vars", null, 0, -1, Vars.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(exprsEClass, Exprs.class, "Exprs", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getExprs_Exprs(), ecorePackage.getEString(), "exprs", null, 0, -1, Exprs.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getExprs_Exprs(), this.getExpr(), null, "exprs", null, 0, -1, Exprs.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(exprEClass, Expr.class, "Expr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(exprSimpleEClass, ExprSimple.class, "ExprSimple", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(consEClass, cons.class, "cons", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getcons_List(), ecorePackage.getEString(), "list", null, 0, 1, cons.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

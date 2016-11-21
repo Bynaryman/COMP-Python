@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.xtext.comp.wh.Affect#getVar <em>Var</em>}</li>
+ *   <li>{@link org.xtext.comp.wh.Affect#getVars <em>Vars</em>}</li>
  *   <li>{@link org.xtext.comp.wh.Affect#getExp <em>Exp</em>}</li>
  * </ul>
  *
@@ -25,30 +25,30 @@ import org.eclipse.emf.ecore.EObject;
 public interface Affect extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Var</b></em>' containment reference.
+   * Returns the value of the '<em><b>Vars</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Var</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Vars</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Var</em>' containment reference.
-   * @see #setVar(Vars)
-   * @see org.xtext.comp.wh.WhPackage#getAffect_Var()
+   * @return the value of the '<em>Vars</em>' containment reference.
+   * @see #setVars(Vars)
+   * @see org.xtext.comp.wh.WhPackage#getAffect_Vars()
    * @model containment="true"
    * @generated
    */
-  Vars getVar();
+  Vars getVars();
 
   /**
-   * Sets the value of the '{@link org.xtext.comp.wh.Affect#getVar <em>Var</em>}' containment reference.
+   * Sets the value of the '{@link org.xtext.comp.wh.Affect#getVars <em>Vars</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Var</em>' containment reference.
-   * @see #getVar()
+   * @param value the new value of the '<em>Vars</em>' containment reference.
+   * @see #getVars()
    * @generated
    */
-  void setVar(Vars value);
+  void setVars(Vars value);
 
   /**
    * Returns the value of the '<em><b>Exp</b></em>' containment reference.

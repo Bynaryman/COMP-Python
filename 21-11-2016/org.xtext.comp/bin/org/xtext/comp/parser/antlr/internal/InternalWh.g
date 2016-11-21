@@ -118,9 +118,9 @@ ruleProgram returns [EObject current=null]
 		}
 		(
 			(
-				lv_name_1_0=RULE_ID
+				lv_name_1_0=RULE_SYMBOL
 				{
-					newLeafNode(lv_name_1_0, grammarAccess.getProgramAccess().getNameIDTerminalRuleCall_1_0());
+					newLeafNode(lv_name_1_0, grammarAccess.getProgramAccess().getNameSYMBOLTerminalRuleCall_1_0());
 				}
 				{
 					if ($current==null) {
@@ -130,7 +130,7 @@ ruleProgram returns [EObject current=null]
 						$current,
 						"name",
 						lv_name_1_0,
-						"org.eclipse.xtext.common.Terminals.ID");
+						"org.xtext.comp.Wh.SYMBOL");
 				}
 			)
 		)
@@ -541,17 +541,17 @@ ruleAffect returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getAffectAccess().getVarVarsParserRuleCall_0_0());
+					newCompositeNode(grammarAccess.getAffectAccess().getVarsVarsParserRuleCall_0_0());
 				}
-				lv_var_0_0=ruleVars
+				lv_vars_0_0=ruleVars
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getAffectRule());
 					}
 					set(
 						$current,
-						"var",
-						lv_var_0_0,
+						"vars",
+						lv_vars_0_0,
 						"org.xtext.comp.Wh.Vars");
 					afterParserOrEnumRuleCall();
 				}
@@ -708,41 +708,14 @@ ruleExprs returns [EObject current=null]
 ;
 
 // Entry rule entryRuleExpr
-entryRuleExpr returns [String current=null]:
+entryRuleExpr returns [EObject current=null]:
 	{ newCompositeNode(grammarAccess.getExprRule()); }
 	iv_ruleExpr=ruleExpr
-	{ $current=$iv_ruleExpr.current.getText(); }
+	{ $current=$iv_ruleExpr.current; }
 	EOF;
 
 // Rule Expr
-ruleExpr returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	{
-		newCompositeNode(grammarAccess.getExprAccess().getExprSimpleParserRuleCall());
-	}
-	this_ExprSimple_0=ruleExprSimple
-	{
-		$current.merge(this_ExprSimple_0);
-	}
-	{
-		afterParserOrEnumRuleCall();
-	}
-;
-
-// Entry rule entryRuleExprSimple
-entryRuleExprSimple returns [String current=null]:
-	{ newCompositeNode(grammarAccess.getExprSimpleRule()); }
-	iv_ruleExprSimple=ruleExprSimple
-	{ $current=$iv_ruleExprSimple.current.getText(); }
-	EOF;
-
-// Rule ExprSimple
-ruleExprSimple returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
+ruleExpr returns [EObject current=null]
 @init {
 	enterRule();
 }
@@ -750,23 +723,164 @@ ruleExprSimple returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToke
 	leaveRule();
 }:
 	(
-		kw='nil'
 		{
-			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getExprSimpleAccess().getNilKeyword_0());
+			newCompositeNode(grammarAccess.getExprAccess().getExprSimpleParserRuleCall_0());
+		}
+		this_ExprSimple_0=ruleExprSimple
+		{
+			$current = $this_ExprSimple_0.current;
+			afterParserOrEnumRuleCall();
 		}
 		    |
-		this_VARIABLE_1=RULE_VARIABLE
 		{
-			$current.merge(this_VARIABLE_1);
+			newCompositeNode(grammarAccess.getExprAccess().getExprAndParserRuleCall_1());
 		}
+		ruleExprAnd
 		{
-			newLeafNode(this_VARIABLE_1, grammarAccess.getExprSimpleAccess().getVARIABLETerminalRuleCall_1());
+			afterParserOrEnumRuleCall();
 		}
 	)
 ;
 
-RULE_VARIABLE : 'A'..'Z' RULE_ID;
+// Entry rule entryRuleExprSimple
+entryRuleExprSimple returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getExprSimpleRule()); }
+	iv_ruleExprSimple=ruleExprSimple
+	{ $current=$iv_ruleExprSimple.current; }
+	EOF;
+
+// Rule ExprSimple
+ruleExprSimple returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		otherlv_0='nil'
+		{
+			newLeafNode(otherlv_0, grammarAccess.getExprSimpleAccess().getNilKeyword_0());
+		}
+		    |
+		this_VARIABLE_1=RULE_VARIABLE
+		{
+			newLeafNode(this_VARIABLE_1, grammarAccess.getExprSimpleAccess().getVARIABLETerminalRuleCall_1());
+		}
+		    |
+		this_SYMBOL_2=RULE_SYMBOL
+		{
+			newLeafNode(this_SYMBOL_2, grammarAccess.getExprSimpleAccess().getSYMBOLTerminalRuleCall_2());
+		}
+		    |
+		{
+			newCompositeNode(grammarAccess.getExprSimpleAccess().getConsParserRuleCall_3());
+		}
+		this_cons_3=rulecons
+		{
+			$current = $this_cons_3.current;
+			afterParserOrEnumRuleCall();
+		}
+	)
+;
+
+// Entry rule entryRulecons
+entryRulecons returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getConsRule()); }
+	iv_rulecons=rulecons
+	{ $current=$iv_rulecons.current; }
+	EOF;
+
+// Rule cons
+rulecons returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		otherlv_0='('
+		{
+			newLeafNode(otherlv_0, grammarAccess.getConsAccess().getLeftParenthesisKeyword_0());
+		}
+		otherlv_1='cons'
+		{
+			newLeafNode(otherlv_1, grammarAccess.getConsAccess().getConsKeyword_1());
+		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getConsAccess().getListListExprParserRuleCall_2_0());
+				}
+				lv_list_2_0=ruleListExpr
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getConsRule());
+					}
+					set(
+						$current,
+						"list",
+						lv_list_2_0,
+						"org.xtext.comp.Wh.ListExpr");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		otherlv_3=')'
+		{
+			newLeafNode(otherlv_3, grammarAccess.getConsAccess().getRightParenthesisKeyword_3());
+		}
+	)
+;
+
+// Entry rule entryRuleListExpr
+entryRuleListExpr returns [String current=null]:
+	{ newCompositeNode(grammarAccess.getListExprRule()); }
+	iv_ruleListExpr=ruleListExpr
+	{ $current=$iv_ruleListExpr.current.getText(); }
+	EOF;
+
+// Rule ListExpr
+ruleListExpr returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	kw='TODO'
+	{
+		$current.merge(kw);
+		newLeafNode(kw, grammarAccess.getListExprAccess().getTODOKeyword());
+	}
+;
+
+// Entry rule entryRuleExprAnd
+entryRuleExprAnd returns [String current=null]:
+	{ newCompositeNode(grammarAccess.getExprAndRule()); }
+	iv_ruleExprAnd=ruleExprAnd
+	{ $current=$iv_ruleExprAnd.current.getText(); }
+	EOF;
+
+// Rule ExprAnd
+ruleExprAnd returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	kw='TODO'
+	{
+		$current.merge(kw);
+		newLeafNode(kw, grammarAccess.getExprAndAccess().getTODOKeyword());
+	}
+;
+
+RULE_VARIABLE : 'A'..'Z' ('0'..'9'|'a'..'z'|'A'..'Z')* ((('-'|'+'|'.'|'/'|'_'|'&')|'->') ('0'..'9'|'a'..'z'|'A'..'Z')+)* ('?'|'!')?;
+
+RULE_SYMBOL : 'a'..'z' ('0'..'9'|'a'..'z'|'A'..'Z')* ((('-'|'+'|'.'|'/'|'_'|'&')|'->') ('0'..'9'|'a'..'z'|'A'..'Z')+)* ('?'|'!')?;
 
 RULE_ID : '^'? ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
 

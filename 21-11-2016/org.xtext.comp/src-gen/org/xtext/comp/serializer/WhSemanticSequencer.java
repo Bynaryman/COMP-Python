@@ -27,6 +27,7 @@ import org.xtext.comp.wh.Program;
 import org.xtext.comp.wh.Vars;
 import org.xtext.comp.wh.Wh;
 import org.xtext.comp.wh.WhPackage;
+import org.xtext.comp.wh.cons;
 
 @SuppressWarnings("all")
 public class WhSemanticSequencer extends AbstractDelegatingSemanticSequencer {
@@ -75,6 +76,9 @@ public class WhSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case WhPackage.WH:
 				sequence_Wh(context, (Wh) semanticObject); 
 				return; 
+			case WhPackage.CONS:
+				sequence_cons(context, (cons) semanticObject); 
+				return; 
 			}
 		if (errorAcceptor != null)
 			errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
@@ -85,17 +89,17 @@ public class WhSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Affect returns Affect
 	 *
 	 * Constraint:
-	 *     (var=Vars exp=Exprs)
+	 *     (vars=Vars exp=Exprs)
 	 */
 	protected void sequence_Affect(ISerializationContext context, Affect semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, WhPackage.Literals.AFFECT__VAR) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, WhPackage.Literals.AFFECT__VAR));
+			if (transientValues.isValueTransient(semanticObject, WhPackage.Literals.AFFECT__VARS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, WhPackage.Literals.AFFECT__VARS));
 			if (transientValues.isValueTransient(semanticObject, WhPackage.Literals.AFFECT__EXP) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, WhPackage.Literals.AFFECT__EXP));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getAffectAccess().getVarVarsParserRuleCall_0_0(), semanticObject.getVar());
+		feeder.accept(grammarAccess.getAffectAccess().getVarsVarsParserRuleCall_0_0(), semanticObject.getVars());
 		feeder.accept(grammarAccess.getAffectAccess().getExpExprsParserRuleCall_2_0(), semanticObject.getExp());
 		feeder.finish();
 	}
@@ -208,7 +212,7 @@ public class WhSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Program returns Program
 	 *
 	 * Constraint:
-	 *     (name=ID definition=Definition)
+	 *     (name=SYMBOL definition=Definition)
 	 */
 	protected void sequence_Program(ISerializationContext context, Program semanticObject) {
 		if (errorAcceptor != null) {
@@ -218,7 +222,7 @@ public class WhSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, WhPackage.Literals.PROGRAM__DEFINITION));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getProgramAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getProgramAccess().getNameSYMBOLTerminalRuleCall_1_0(), semanticObject.getName());
 		feeder.accept(grammarAccess.getProgramAccess().getDefinitionDefinitionParserRuleCall_3_0(), semanticObject.getDefinition());
 		feeder.finish();
 	}
@@ -245,6 +249,26 @@ public class WhSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 */
 	protected void sequence_Wh(ISerializationContext context, Wh semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Expr returns cons
+	 *     ExprSimple returns cons
+	 *     cons returns cons
+	 *
+	 * Constraint:
+	 *     list=ListExpr
+	 */
+	protected void sequence_cons(ISerializationContext context, cons semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, WhPackage.Literals.CONS__LIST) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, WhPackage.Literals.CONS__LIST));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getConsAccess().getListListExprParserRuleCall_2_0(), semanticObject.getList());
+		feeder.finish();
 	}
 	
 	

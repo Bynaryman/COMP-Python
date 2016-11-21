@@ -42,26 +42,26 @@ public class WhGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cFunctionKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final RuleCall cNameSYMBOLTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		private final Keyword cColonKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cDefinitionAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cDefinitionDefinitionParserRuleCall_3_0 = (RuleCall)cDefinitionAssignment_3.eContents().get(0);
 		
 		//Program:
-		//	'function' name=ID ':' definition=Definition;
+		//	'function' name=SYMBOL ':' definition=Definition;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'function' name=ID ':' definition=Definition
+		//'function' name=SYMBOL ':' definition=Definition
 		public Group getGroup() { return cGroup; }
 		
 		//'function'
 		public Keyword getFunctionKeyword_0() { return cFunctionKeyword_0; }
 		
-		//name=ID
+		//name=SYMBOL
 		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
 		
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
+		//SYMBOL
+		public RuleCall getNameSYMBOLTerminalRuleCall_1_0() { return cNameSYMBOLTerminalRuleCall_1_0; }
 		
 		//':'
 		public Keyword getColonKeyword_2() { return cColonKeyword_2; }
@@ -269,24 +269,24 @@ public class WhGrammarAccess extends AbstractGrammarElementFinder {
 	public class AffectElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.comp.Wh.Affect");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cVarAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cVarVarsParserRuleCall_0_0 = (RuleCall)cVarAssignment_0.eContents().get(0);
+		private final Assignment cVarsAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cVarsVarsParserRuleCall_0_0 = (RuleCall)cVarsAssignment_0.eContents().get(0);
 		private final Keyword cColonEqualsSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cExpAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cExpExprsParserRuleCall_2_0 = (RuleCall)cExpAssignment_2.eContents().get(0);
 		
 		//Affect:
-		//	var=Vars ':=' exp=Exprs;
+		//	vars=Vars ':=' exp=Exprs;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//var=Vars ':=' exp=Exprs
+		//vars=Vars ':=' exp=Exprs
 		public Group getGroup() { return cGroup; }
 		
-		//var=Vars
-		public Assignment getVarAssignment_0() { return cVarAssignment_0; }
+		//vars=Vars
+		public Assignment getVarsAssignment_0() { return cVarsAssignment_0; }
 		
 		//Vars
-		public RuleCall getVarVarsParserRuleCall_0_0() { return cVarVarsParserRuleCall_0_0; }
+		public RuleCall getVarsVarsParserRuleCall_0_0() { return cVarsVarsParserRuleCall_0_0; }
 		
 		//':='
 		public Keyword getColonEqualsSignKeyword_1() { return cColonEqualsSignKeyword_1; }
@@ -369,26 +369,36 @@ public class WhGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	public class ExprElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.comp.Wh.Expr");
-		private final RuleCall cExprSimpleParserRuleCall = (RuleCall)rule.eContents().get(1);
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cExprSimpleParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cExprAndParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
 		//Expr:
-		//	ExprSimple;
+		//	ExprSimple | ExprAnd;
 		@Override public ParserRule getRule() { return rule; }
 		
+		//ExprSimple | ExprAnd
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
 		//ExprSimple
-		public RuleCall getExprSimpleParserRuleCall() { return cExprSimpleParserRuleCall; }
+		public RuleCall getExprSimpleParserRuleCall_0() { return cExprSimpleParserRuleCall_0; }
+		
+		//ExprAnd
+		public RuleCall getExprAndParserRuleCall_1() { return cExprAndParserRuleCall_1; }
 	}
 	public class ExprSimpleElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.comp.Wh.ExprSimple");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final Keyword cNilKeyword_0 = (Keyword)cAlternatives.eContents().get(0);
 		private final RuleCall cVARIABLETerminalRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cSYMBOLTerminalRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cConsParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		
 		//ExprSimple:
-		//	'nil' | VARIABLE;
+		//	'nil' | VARIABLE | SYMBOL | cons;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'nil' | VARIABLE
+		//'nil' | VARIABLE | SYMBOL | cons
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//'nil'
@@ -396,6 +406,54 @@ public class WhGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//VARIABLE
 		public RuleCall getVARIABLETerminalRuleCall_1() { return cVARIABLETerminalRuleCall_1; }
+		
+		//SYMBOL
+		public RuleCall getSYMBOLTerminalRuleCall_2() { return cSYMBOLTerminalRuleCall_2; }
+		
+		//cons
+		public RuleCall getConsParserRuleCall_3() { return cConsParserRuleCall_3; }
+	}
+	public class ConsElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.comp.Wh.cons");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cConsKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cListAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cListListExprParserRuleCall_2_0 = (RuleCall)cListAssignment_2.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		
+		//cons:
+		//	'(' 'cons' list=ListExpr ')';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'(' 'cons' list=ListExpr ')'
+		public Group getGroup() { return cGroup; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_0() { return cLeftParenthesisKeyword_0; }
+		
+		//'cons'
+		public Keyword getConsKeyword_1() { return cConsKeyword_1; }
+		
+		//list=ListExpr
+		public Assignment getListAssignment_2() { return cListAssignment_2; }
+		
+		//ListExpr
+		public RuleCall getListListExprParserRuleCall_2_0() { return cListListExprParserRuleCall_2_0; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_3() { return cRightParenthesisKeyword_3; }
+	}
+	public class ListExprElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.comp.Wh.ListExpr");
+		private final Keyword cTODOKeyword = (Keyword)rule.eContents().get(1);
+		
+		//ListExpr:
+		//	'TODO';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'TODO'
+		public Keyword getTODOKeyword() { return cTODOKeyword; }
 	}
 	public class ExprAndElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.comp.Wh.ExprAnd");
@@ -423,8 +481,11 @@ public class WhGrammarAccess extends AbstractGrammarElementFinder {
 	private final ExprsElements pExprs;
 	private final ExprElements pExpr;
 	private final ExprSimpleElements pExprSimple;
+	private final ConsElements pCons;
+	private final ListExprElements pListExpr;
 	private final ExprAndElements pExprAnd;
 	private final TerminalRule tVARIABLE;
+	private final TerminalRule tSYMBOL;
 	
 	private final Grammar grammar;
 	
@@ -448,8 +509,11 @@ public class WhGrammarAccess extends AbstractGrammarElementFinder {
 		this.pExprs = new ExprsElements();
 		this.pExpr = new ExprElements();
 		this.pExprSimple = new ExprSimpleElements();
+		this.pCons = new ConsElements();
+		this.pListExpr = new ListExprElements();
 		this.pExprAnd = new ExprAndElements();
 		this.tVARIABLE = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.comp.Wh.VARIABLE");
+		this.tSYMBOL = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.comp.Wh.SYMBOL");
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -490,7 +554,7 @@ public class WhGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Program:
-	//	'function' name=ID ':' definition=Definition;
+	//	'function' name=SYMBOL ':' definition=Definition;
 	public ProgramElements getProgramAccess() {
 		return pProgram;
 	}
@@ -560,7 +624,7 @@ public class WhGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Affect:
-	//	var=Vars ':=' exp=Exprs;
+	//	vars=Vars ':=' exp=Exprs;
 	public AffectElements getAffectAccess() {
 		return pAffect;
 	}
@@ -590,7 +654,7 @@ public class WhGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Expr:
-	//	ExprSimple;
+	//	ExprSimple | ExprAnd;
 	public ExprElements getExprAccess() {
 		return pExpr;
 	}
@@ -600,13 +664,33 @@ public class WhGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//ExprSimple:
-	//	'nil' | VARIABLE;
+	//	'nil' | VARIABLE | SYMBOL | cons;
 	public ExprSimpleElements getExprSimpleAccess() {
 		return pExprSimple;
 	}
 	
 	public ParserRule getExprSimpleRule() {
 		return getExprSimpleAccess().getRule();
+	}
+	
+	//cons:
+	//	'(' 'cons' list=ListExpr ')';
+	public ConsElements getConsAccess() {
+		return pCons;
+	}
+	
+	public ParserRule getConsRule() {
+		return getConsAccess().getRule();
+	}
+	
+	//ListExpr:
+	//	'TODO';
+	public ListExprElements getListExprAccess() {
+		return pListExpr;
+	}
+	
+	public ParserRule getListExprRule() {
+		return getListExprAccess().getRule();
 	}
 	
 	//ExprAnd:
@@ -620,9 +704,17 @@ public class WhGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//terminal VARIABLE:
-	//	'A'..'Z' ID;
+	//	'A'..'Z' ('0'..'9' | 'a'..'z' | 'A'..'Z')* ((('-' | '+' | '.' | '/' | '_' | '&') | '->') ('0'..'9' | 'a'..'z' |
+	//	'A'..'Z')+)* ('?' | '!')?;
 	public TerminalRule getVARIABLERule() {
 		return tVARIABLE;
+	}
+	
+	//terminal SYMBOL:
+	//	'a'..'z' ('0'..'9' | 'a'..'z' | 'A'..'Z')* ((('-' | '+' | '.' | '/' | '_' | '&') | '->') ('0'..'9' | 'a'..'z' |
+	//	'A'..'Z')+)* ('?' | '!')?;
+	public TerminalRule getSYMBOLRule() {
+		return tSYMBOL;
 	}
 	
 	//terminal ID:

@@ -319,13 +319,13 @@ public interface WhPackage extends EPackage
   int AFFECT = 8;
 
   /**
-   * The feature id for the '<em><b>Var</b></em>' containment reference.
+   * The feature id for the '<em><b>Vars</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int AFFECT__VAR = 0;
+  int AFFECT__VARS = 0;
 
   /**
    * The feature id for the '<em><b>Exp</b></em>' containment reference.
@@ -384,7 +384,7 @@ public interface WhPackage extends EPackage
   int EXPRS = 10;
 
   /**
-   * The feature id for the '<em><b>Exprs</b></em>' attribute list.
+   * The feature id for the '<em><b>Exprs</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -400,6 +400,72 @@ public interface WhPackage extends EPackage
    * @ordered
    */
   int EXPRS_FEATURE_COUNT = 1;
+
+  /**
+   * The meta object id for the '{@link org.xtext.comp.wh.impl.ExprImpl <em>Expr</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtext.comp.wh.impl.ExprImpl
+   * @see org.xtext.comp.wh.impl.WhPackageImpl#getExpr()
+   * @generated
+   */
+  int EXPR = 11;
+
+  /**
+   * The number of structural features of the '<em>Expr</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPR_FEATURE_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link org.xtext.comp.wh.impl.ExprSimpleImpl <em>Expr Simple</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtext.comp.wh.impl.ExprSimpleImpl
+   * @see org.xtext.comp.wh.impl.WhPackageImpl#getExprSimple()
+   * @generated
+   */
+  int EXPR_SIMPLE = 12;
+
+  /**
+   * The number of structural features of the '<em>Expr Simple</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPR_SIMPLE_FEATURE_COUNT = EXPR_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.xtext.comp.wh.impl.consImpl <em>cons</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtext.comp.wh.impl.consImpl
+   * @see org.xtext.comp.wh.impl.WhPackageImpl#getcons()
+   * @generated
+   */
+  int CONS = 13;
+
+  /**
+   * The feature id for the '<em><b>List</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONS__LIST = EXPR_SIMPLE_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>cons</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONS_FEATURE_COUNT = EXPR_SIMPLE_FEATURE_COUNT + 1;
 
 
   /**
@@ -614,15 +680,15 @@ public interface WhPackage extends EPackage
   EClass getAffect();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.comp.wh.Affect#getVar <em>Var</em>}'.
+   * Returns the meta object for the containment reference '{@link org.xtext.comp.wh.Affect#getVars <em>Vars</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Var</em>'.
-   * @see org.xtext.comp.wh.Affect#getVar()
+   * @return the meta object for the containment reference '<em>Vars</em>'.
+   * @see org.xtext.comp.wh.Affect#getVars()
    * @see #getAffect()
    * @generated
    */
-  EReference getAffect_Var();
+  EReference getAffect_Vars();
 
   /**
    * Returns the meta object for the containment reference '{@link org.xtext.comp.wh.Affect#getExp <em>Exp</em>}'.
@@ -667,15 +733,56 @@ public interface WhPackage extends EPackage
   EClass getExprs();
 
   /**
-   * Returns the meta object for the attribute list '{@link org.xtext.comp.wh.Exprs#getExprs <em>Exprs</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.xtext.comp.wh.Exprs#getExprs <em>Exprs</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Exprs</em>'.
+   * @return the meta object for the containment reference list '<em>Exprs</em>'.
    * @see org.xtext.comp.wh.Exprs#getExprs()
    * @see #getExprs()
    * @generated
    */
-  EAttribute getExprs_Exprs();
+  EReference getExprs_Exprs();
+
+  /**
+   * Returns the meta object for class '{@link org.xtext.comp.wh.Expr <em>Expr</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Expr</em>'.
+   * @see org.xtext.comp.wh.Expr
+   * @generated
+   */
+  EClass getExpr();
+
+  /**
+   * Returns the meta object for class '{@link org.xtext.comp.wh.ExprSimple <em>Expr Simple</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Expr Simple</em>'.
+   * @see org.xtext.comp.wh.ExprSimple
+   * @generated
+   */
+  EClass getExprSimple();
+
+  /**
+   * Returns the meta object for class '{@link org.xtext.comp.wh.cons <em>cons</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>cons</em>'.
+   * @see org.xtext.comp.wh.cons
+   * @generated
+   */
+  EClass getcons();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.comp.wh.cons#getList <em>List</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>List</em>'.
+   * @see org.xtext.comp.wh.cons#getList()
+   * @see #getcons()
+   * @generated
+   */
+  EAttribute getcons_List();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -879,12 +986,12 @@ public interface WhPackage extends EPackage
     EClass AFFECT = eINSTANCE.getAffect();
 
     /**
-     * The meta object literal for the '<em><b>Var</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Vars</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference AFFECT__VAR = eINSTANCE.getAffect_Var();
+    EReference AFFECT__VARS = eINSTANCE.getAffect_Vars();
 
     /**
      * The meta object literal for the '<em><b>Exp</b></em>' containment reference feature.
@@ -923,12 +1030,50 @@ public interface WhPackage extends EPackage
     EClass EXPRS = eINSTANCE.getExprs();
 
     /**
-     * The meta object literal for the '<em><b>Exprs</b></em>' attribute list feature.
+     * The meta object literal for the '<em><b>Exprs</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute EXPRS__EXPRS = eINSTANCE.getExprs_Exprs();
+    EReference EXPRS__EXPRS = eINSTANCE.getExprs_Exprs();
+
+    /**
+     * The meta object literal for the '{@link org.xtext.comp.wh.impl.ExprImpl <em>Expr</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtext.comp.wh.impl.ExprImpl
+     * @see org.xtext.comp.wh.impl.WhPackageImpl#getExpr()
+     * @generated
+     */
+    EClass EXPR = eINSTANCE.getExpr();
+
+    /**
+     * The meta object literal for the '{@link org.xtext.comp.wh.impl.ExprSimpleImpl <em>Expr Simple</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtext.comp.wh.impl.ExprSimpleImpl
+     * @see org.xtext.comp.wh.impl.WhPackageImpl#getExprSimple()
+     * @generated
+     */
+    EClass EXPR_SIMPLE = eINSTANCE.getExprSimple();
+
+    /**
+     * The meta object literal for the '{@link org.xtext.comp.wh.impl.consImpl <em>cons</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtext.comp.wh.impl.consImpl
+     * @see org.xtext.comp.wh.impl.WhPackageImpl#getcons()
+     * @generated
+     */
+    EClass CONS = eINSTANCE.getcons();
+
+    /**
+     * The meta object literal for the '<em><b>List</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CONS__LIST = eINSTANCE.getcons_List();
 
   }
 

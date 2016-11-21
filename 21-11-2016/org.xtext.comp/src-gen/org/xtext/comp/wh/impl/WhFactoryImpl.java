@@ -76,6 +76,9 @@ public class WhFactoryImpl extends EFactoryImpl implements WhFactory
       case WhPackage.AFFECT: return createAffect();
       case WhPackage.VARS: return createVars();
       case WhPackage.EXPRS: return createExprs();
+      case WhPackage.EXPR: return createExpr();
+      case WhPackage.EXPR_SIMPLE: return createExprSimple();
+      case WhPackage.CONS: return createcons();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -200,6 +203,39 @@ public class WhFactoryImpl extends EFactoryImpl implements WhFactory
   {
     ExprsImpl exprs = new ExprsImpl();
     return exprs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Expr createExpr()
+  {
+    ExprImpl expr = new ExprImpl();
+    return expr;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ExprSimple createExprSimple()
+  {
+    ExprSimpleImpl exprSimple = new ExprSimpleImpl();
+    return exprSimple;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public cons createcons()
+  {
+    consImpl cons = new consImpl();
+    return cons;
   }
 
   /**

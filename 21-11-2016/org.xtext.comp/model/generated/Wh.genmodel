@@ -34,14 +34,19 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Wh.ecore#//Nop/nop"/>
     </genClasses>
     <genClasses ecoreClass="Wh.ecore#//Affect">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Wh.ecore#//Affect/var"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Wh.ecore#//Affect/vars"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Wh.ecore#//Affect/exp"/>
     </genClasses>
     <genClasses ecoreClass="Wh.ecore#//Vars">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Wh.ecore#//Vars/vars"/>
     </genClasses>
     <genClasses ecoreClass="Wh.ecore#//Exprs">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Wh.ecore#//Exprs/exprs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Wh.ecore#//Exprs/exprs"/>
+    </genClasses>
+    <genClasses ecoreClass="Wh.ecore#//Expr"/>
+    <genClasses ecoreClass="Wh.ecore#//ExprSimple"/>
+    <genClasses ecoreClass="Wh.ecore#//cons">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Wh.ecore#//cons/list"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

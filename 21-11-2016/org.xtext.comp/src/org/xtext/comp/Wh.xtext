@@ -7,7 +7,7 @@ Wh :
   
  
 Program: 
-	'function' name=ID ':' definition=Definition 
+	'function' name=SYMBOL ':' definition=Definition 
 ;
 
 Definition:
@@ -35,7 +35,7 @@ Nop:
 ;
 
 Affect:
-	var=Vars ':=' exp=Exprs
+	vars=Vars ':=' exp=Exprs
 ;
 
 Vars:
@@ -47,17 +47,30 @@ Exprs:
 ;
 
 Expr:
-	ExprSimple
+	ExprSimple | ExprAnd
 ;
 
 ExprSimple:
-	'nil' | VARIABLE
+	'nil' | VARIABLE | SYMBOL | cons
+;
+
+cons:
+	'(' 'cons' list=ListExpr ')'
+;
+
+ListExpr:
+	'TODO'
 ;
 
 ExprAnd:
 	'TODO'
 ;
 
+
 terminal VARIABLE:
-	'A'..'Z' ID
+	('A'..'Z') (('0'..'9') | ('a'..'z') | ('A'..'Z'))* ((('-' | '+' | '.' | '/' | '_' | '&') | '->') (('0'..'9') | ('a'..'z') | ('A'..'Z'))+)* ('?' | '!')?
+;
+
+terminal SYMBOL:
+	('a'..'z') (('0'..'9') | ('a'..'z') | ('A'..'Z'))* ((('-' | '+' | '.' | '/' | '_' | '&') | '->') (('0'..'9') | ('a'..'z') | ('A'..'Z'))+)* ('?' | '!')?
 ;
