@@ -1,0 +1,42 @@
+WHPP - Linux man page
+
+Name
+
+WHPP - Pretty print un fichier while .wh
+
+Synopsis
+
+WHPP [-h --h -help --help] [-ip --input path] [-a --all] [-i --if]
+
+Description
+
+Prend un fichier .wh en argument et fabrique un fichier .whpp pretty printé.
+
+Options
+
+WHPP accepte les options suivantes :
+
+-h --h -help --help
+
+Affiche cette aide.
+
+-a --all indentation
+
+Active l'indentation des différentes commandes avec le niveau d'indentation précisé. Si le niveau n'est pas précisé il vaut la valeur 2.
+
+-i
+
+Active l'indentation du if avec le niveau d'indentation précisée. Si le niveau n'est pas précisé il vaut la valeur du all.
+
+Author
+
+Louis Ledoux
+Julien Durand
+Antoine-Adrien Parent
+Anthony Thomas
+Salifou Nguetcheu
+
+Bugs
+
+
+See Also
