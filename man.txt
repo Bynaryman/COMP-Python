@@ -1,34 +1,41 @@
 WHPP - Linux man page
 
-Name
+NOM
 
-WHPP - Pretty print un fichier while .wh
+        WHPP - Pretty print un fichier while .whpp
 
-Synopsis
 
-WHPP [-h --h -help --help] [-ip --input path] [-a --all] [-i --if]
+SYNOPSYS
 
-Description
+        WHPP [-h --h -help --help] [-ip --input] [-a --all] [-i --if]
 
-Prend un fichier .wh en argument et fabrique un fichier .whpp pretty printé.
 
-Options
+DESCRIPTION
 
-WHPP accepte les options suivantes :
+        Prend un fichier .wh en argument et fabrique un fichier .whpp pretty print√©.
 
--h --h -help --help
 
-Affiche cette aide.
+EXEMPLE
 
--a --all indentation
+        La commande s'utilise de la fa√ßon suivante :
 
-Active l'indentation des différentes commandes avec le niveau d'indentation précisé. Si le niveau n'est pas précisé il vaut la valeur 2.
+        WHPP.sh -ip "path"
 
--i
+        Le "path" correspond au chemin du fichier √† pretty printer, il s'agit d'une option obligatoire.
 
-Active l'indentation du if avec le niveau d'indentation précisée. Si le niveau n'est pas précisé il vaut la valeur du all.
 
-Author
+OPTIONS
+
+        -h --h -help --help
+        Affiche cette aide.
+
+        -a --all indentation
+        Active l'indentation des diff√©rentes commandes avec le niveau d'indentation pr√©cis√©. Si le niveau n'est pas pr√©cis√© il vaut la valeur 2.
+
+        -i --if
+        Active l'indentation du if avec le niveau d'indentation pr√©cis√©e. Si le niveau n'est pas pr√©cis√© il vaut la valeur du all.
+
+AUTEURS
 
 Louis Ledoux
 Julien Durand
@@ -36,7 +43,5 @@ Antoine-Adrien Parent
 Anthony Thomas
 Salifou Nguetcheu
 
-Bugs
-
-
-See Also
+BUGS
+En cas de probl√®mes, n'h√©sitez pas √† envoyer un message sur notre repository GitHub √† l'adresse suivante : https://github.com/Bynaryman/COMP-Python
