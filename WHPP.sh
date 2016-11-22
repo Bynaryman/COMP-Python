@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 noHelp=""
 optionHelp=0
 optionAutre=0
@@ -21,12 +21,12 @@ then
   echo
 elif [ $optionAutre -eq 1 -a $optionHelp -eq 0 ]
 then
-  echo "On lance la commande normalement."
-  cho "Si un paramètre ne correspond à rien, c'est le code java qui le gère ?"
+  java -jar WHILE_compiler.jar $*
 elif [ $optionAutre -eq 0 -a $optionHelp -eq 1 ]
 then
-  echo "Affichage du manuel."
+  clear
+  cat man.txt
 else
-  echo "Erreur: Il n'y a aucun paramètre. (on gère ça comment ?)"
+  echo "Erreur: Il n'y a aucun paramètre."
+  echo "Pour afficher le manuel taper -h --h -help ou --help"
 fi
-#java -jar WHILE_compiler.jar $*
