@@ -27,7 +27,24 @@ Commands:
 ;
 
 Command:
-   cmd=(Nop | Affect)
+   cmd=(Nop | Affect | If | While | For | Foreach)
+;
+
+
+Foreach:
+	('foreach' expr1=Expr 'in' expr2=Expr 'do' cmds=Commands 'od')
+;
+
+For:
+	('for' expr=Expr 'do' cmds=Commands 'od')
+;
+
+While:
+	('while' expr=Expr 'do' cmds=Commands 'od')
+;
+
+If:
+	('if' expr=Expr 'then' cmdsTrue=Commands ('else' cmdsFalse=Commands)? 'fi')
 ;
 
 Nop:
@@ -51,7 +68,11 @@ Expr:
 ;
 
 ExprSimple:
-	str='nil' | str=VARIABLE | str=SYMBOL | cons=Cons
+	str='nil' | str=VARIABLE | str=SYMBOL | cons=Cons 
+	| '(' 'list' listExpr=ListExpr ')' 
+	| '(' 'hd' exprHd=Expr ')'
+	| '(' 'tl' exprTl=Expr ')'
+	| '(' strSymb=SYMBOL listExpr=ListExpr ')'
 ;
 
 Cons:

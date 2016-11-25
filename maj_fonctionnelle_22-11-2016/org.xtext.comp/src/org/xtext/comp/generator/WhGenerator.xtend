@@ -14,18 +14,23 @@ import org.xtext.comp.wh.Commands
 import org.xtext.comp.wh.Cons
 import org.xtext.comp.wh.Definition
 import org.xtext.comp.wh.Expr
+import org.xtext.comp.wh.ExprAnd
+import org.xtext.comp.wh.ExprEq
+import org.xtext.comp.wh.ExprNot
+import org.xtext.comp.wh.ExprOr
 import org.xtext.comp.wh.ExprSimple
 import org.xtext.comp.wh.Exprs
 import org.xtext.comp.wh.Input
+import org.xtext.comp.wh.ListExpr
 import org.xtext.comp.wh.Nop
 import org.xtext.comp.wh.Output
 import org.xtext.comp.wh.Program
 import org.xtext.comp.wh.Vars
-import org.xtext.comp.wh.ListExpr
-import org.xtext.comp.wh.ExprAnd
-import org.xtext.comp.wh.ExprOr
-import org.xtext.comp.wh.ExprNot
-import org.xtext.comp.wh.ExprEq
+import org.xtext.comp.wh.If
+import java.util.HashMap
+import org.xtext.comp.wh.For
+import org.xtext.comp.wh.While
+import org.xtext.comp.wh.Foreach
 
 /**
  * Generates code from your model files on save.
@@ -34,14 +39,15 @@ import org.xtext.comp.wh.ExprEq
  */
 class WhGenerator extends AbstractGenerator {
 
+	HashMap<String, Integer> indentMap = new HashMap<String, Integer>();
+	
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 			
 	}
 	
-	def void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context, String output, int indentAll, int indentIf) {
-		
-        	
-      	var res = ""
+	def void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context, String output, HashMap<String, Integer> indent) {
+		indentMap = indent;
+		var res = ""
         for (prog : resource.allContents.toIterable.filter(Program)) {
         	res += (prettyPrint(prog) + "\n")
         }
@@ -76,7 +82,7 @@ class WhGenerator extends AbstractGenerator {
     def prettyPrint(Definition d) ''' 
     	read «d.input.prettyPrint»
     	%
-    		«d.command.prettyPrint»
+    	«d.command.prettyPrint(indentMap.get("all"))»
     	%
     	write «d.output.prettyPrint»
     '''
@@ -103,8 +109,16 @@ class WhGenerator extends AbstractGenerator {
     	
     	if( exprSim.cons != null) {
     		res += exprSim.cons.prettyPrint
-    	}
-    	else {
+    	    		
+    	} else if (exprSim.strSymb != null && exprSim.listExpr != null  ) {
+    		res += '(' + exprSim.strSymb + ' ' + exprSim.listExpr.prettyPrint + ')'
+    	} else if (exprSim.listExpr != null ) {
+    		res += '(' + exprSim.listExpr.prettyPrint + ')'
+    	} else if (exprSim.exprHd != null ) {
+    		res += '(hd ' + exprSim.exprHd.prettyPrint + ')'
+    	} else if (exprSim.exprTl != null ) {
+    		res += '(tl ' + exprSim.exprTl.prettyPrint + ')'
+    	} else {
     		res += exprSim.str
     	}
     	
@@ -143,7 +157,7 @@ class WhGenerator extends AbstractGenerator {
     def prettyPrint( ExprNot exprnot ) {
     	var res = ""
     	if( exprnot.not != null ) {
-    		res += "not"
+    		res += "not "
     	}
     	return res+exprnot.expr.prettyPrint
     }
@@ -154,7 +168,7 @@ class WhGenerator extends AbstractGenerator {
     	if( eeq.exprSimp1 != null && eeq.exprSimp2 != null ) {
     		res = (eeq.exprSimp1 as ExprSimple).prettyPrint + "?=" + eeq.exprSimp2.prettyPrint
     	} else if ( eeq.expr != null ) {
-    		res = " ("
+    		res = "("
     			res+= eeq.expr.prettyPrint
     		res += ")"
     	}
@@ -190,27 +204,87 @@ class WhGenerator extends AbstractGenerator {
     def prettyPrint( Affect a ){
     	return a.vars.prettyPrint + ' := ' +  a.exp.prettyPrint;
     }
-        
-    def prettyPrint( Command c  )  {
+    
+    def buildIndent( int indent ) {
     	var res = ""
-
+    	for( i: 0 ..< indent ) {
+    		res+=" "
+    	}
+    	return res
+    }	
+    
+    def prettyPrint( While whileC, int globalindent) {
+     	var indent = this.indentMap.get("while");
+    	var globalIndentStr = buildIndent(globalindent);
+    	
+    	var res = "while " + whileC.expr.prettyPrint + "\n" + globalIndentStr + "do\n";
+    	
+    	res+= whileC.cmds.prettyPrint( globalindent + indent );
+    	    	
+    	return res + "\n" + globalIndentStr + "od" ;
+    }
+    def prettyPrint( For forC, int globalindent) {
+     	var indent = this.indentMap.get("for");
+    	var globalIndentStr = buildIndent(globalindent);
+    	var res = "for " + forC.expr.prettyPrint + "\n" + globalIndentStr + "do\n";
+    	
+    	res+= forC.cmds.prettyPrint( globalindent + indent );
+    	    	
+    	return res + "\n" + globalIndentStr + "od" ;
+    }
+    
+    def prettyPrint( Foreach forE, int globalindent ) {
+     	var indent = this.indentMap.get("foreach");
+    	var globalIndentStr = buildIndent(globalindent);
+    	var res = "foreach " + forE.expr1.prettyPrint +" in " + forE.expr2.prettyPrint + "\n" + globalIndentStr + "do\n";
+    	
+    	res+= forE.cmds.prettyPrint( globalindent + indent );
+    	    	
+    	return res + "\n" + globalIndentStr + "od" ;
+    }
+    
+    def prettyPrint( If ifC, int globalindent) {
+    	var indent = this.indentMap.get("if");
+    	var globalIndentStr = buildIndent(globalindent);
+    	var res = "if " + ifC.expr.prettyPrint + "\n" + globalIndentStr + "then\n";
+    	
+    	res+= ifC.cmdsTrue.prettyPrint( globalindent + indent );
+    	
+    	if( ifC.cmdsFalse != null ) {
+    		res+= "\n" + globalIndentStr +"else\n"
+    		res+= ifC.cmdsFalse.prettyPrint( globalindent + indent );
+    	}
+    	
+    	return res + "\n" + globalIndentStr + "fi" ;
+    }
+    
+    def prettyPrint( Command c , int globalindent )  {
+    	var res = "";
     	if( c.cmd instanceof Nop ) {
     		res += (c.cmd as Nop).prettyPrint
     	}else if( c.cmd instanceof Affect ) {
     		res+= (c.cmd as Affect).prettyPrint
-    	}
+    	} else if( c.cmd instanceof If ) {
+    		res+= (c.cmd as If).prettyPrint( globalindent )
+    	} else if( c.cmd instanceof For ) {
+    		res+= (c.cmd as For).prettyPrint( globalindent )
+    	} else if( c.cmd instanceof While ) {
+    		res+= (c.cmd as While).prettyPrint( globalindent )
+    	} else if( c.cmd instanceof Foreach ) {
+    		res+= (c.cmd as Foreach).prettyPrint( globalindent )
+    	} 
 
     	return res
     }
     
-    def prettyPrint( Commands cmds ) {
+    def prettyPrint( Commands cmds, int globalindent ) {
     	var res = ""
-    	
+    	val globalIndentStr = buildIndent( globalindent );
 		for ( i: 0..cmds.commands.size() - 1 ) {
 			if( i < cmds.commands.size -1) {
-				res += cmds.commands.get( i ).prettyPrint + " ;\n" 
+				res += globalIndentStr + cmds.commands.get( i ).prettyPrint( globalindent ) + " ;\n" 
 			}else {			
-				res+=cmds.commands.get( i ).prettyPrint
+				res+= globalIndentStr + cmds.commands.get( i ).prettyPrint( globalindent )
 			}		
 		}
     	
