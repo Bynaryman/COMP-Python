@@ -173,7 +173,7 @@ class WhGenerator extends AbstractGenerator {
     	var res = ""
     	
     	if( eeq.exprSimp1 != null && eeq.exprSimp2 != null ) {
-    		res = (eeq.exprSimp1 as ExprSimple).prettyPrint + "?=" + eeq.exprSimp2.prettyPrint
+    		res = (eeq.exprSimp1 as ExprSimple).prettyPrint + "=?" + eeq.exprSimp2.prettyPrint
     	} else if ( eeq.expr != null ) {
     		res = "("
     			res+= eeq.expr.prettyPrint
