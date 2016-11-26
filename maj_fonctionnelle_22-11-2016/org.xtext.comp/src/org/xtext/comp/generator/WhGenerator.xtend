@@ -49,15 +49,15 @@ class WhGenerator extends AbstractGenerator {
 		indentMap = indent;
 		var res = ""
         for (prog : resource.allContents.toIterable.filter(Program)) {
-        	res += (prettyPrint(prog) + "\n")
+        	res += (prettyPrint(prog))
         }
         fsa.generateFile(output, res)
 	}
 	
-	def prettyPrint(Program p) '''
-            function «p.name» :
-            «p.definition.prettyPrint»
-        '''
+	def prettyPrint(Program p) {
+		var res = "function " + p.name + " :\n"
+		return res + p.definition.prettyPrint
+	}
             
     def printWithDelimiter( List<String> list, String delimiter ) {
     	var res = ""
@@ -79,13 +79,14 @@ class WhGenerator extends AbstractGenerator {
     	return printWithDelimiter( o.vars, ", ")
     }      
           
-    def prettyPrint(Definition d) ''' 
-    	read «d.input.prettyPrint»
-    	%
-    	«d.command.prettyPrint(indentMap.get("all"))»
-    	%
-    	write «d.output.prettyPrint»
-    '''
+    def prettyPrint(Definition d) {
+    	var res = "read " + d.input.prettyPrint + "\n"
+    	res+="%\n"
+    	res += d.command.prettyPrint(indentMap.get("all")) + "\n"
+    	res +="%\n"
+    	res += "write " + d.output.prettyPrint
+    	return res
+    }
     
     def prettyPrint( Nop n ) '''«n.nop»'''
     
