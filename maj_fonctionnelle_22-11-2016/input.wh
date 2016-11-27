@@ -1,8 +1,16 @@
-function maFonction: read Var                  % Var := nil ; 
-nop % write Var function wow    : 	read Test %
-nop ; nop ;
+function maFonction :
+read Var
+%
+Var := (cons Var33 (hello Var a) nil) ;
+nop
+%
+write Var
 
-
+function wow :
+read Test
+%
+nop ;
+nop ;
 nop
 %
 write Toto

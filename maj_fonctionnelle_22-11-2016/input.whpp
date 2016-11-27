@@ -1,0 +1,17 @@
+function maFonction :
+read Var
+%
+Var := (cons Var33 null nil) ;
+nop
+%
+write Var
+
+function wow :
+read Test
+%
+nop ;
+nop ;
+nop
+%
+write Toto
+
